@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring
+  template:
+    metadata:
+      labels:
+        app: spring
+    spec:
+      containers:
+        - name: spring-app  # 컨테이너 이름을 명확하게 설정
+          image: myeongjunkim0615/speak-to-you-spring:latest  # 태그 명확하게 추가
+          ports:
+            - containerPort: 8080  # Spring Boot의 기본 포트
