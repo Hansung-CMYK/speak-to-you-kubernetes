@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mariadb-pvc
+  name: postgresql-pvc
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
       storage: 8Gi  # PV와 동일하게 8Gi 설정
-  volumeName: mariadb-pv
+  volumeName: postgresql-pv
   storageClassName: manual  # PV와 동일한 StorageClass 추가
 

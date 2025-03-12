@@ -1,47 +1,47 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mariadb
+  name: postgresql
 spec:
-  serviceName: "mariadb"
+  serviceName: "postgresql"
   replicas: 1
   selector:
     matchLabels:
-      app: mariadb
+      app: postgresql
   template:
     metadata:
       labels:
-        app: mariadb
+        app: postgresql
     spec:
       containers:
-      - name: mariadb
-        image: mariadb:latest
+      - name: postgresql
+        image: postgres:latest
         env:
-        - name: MYSQL_ROOT_PASSWORD
+        - name: POSTGRES_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mariadb-secret
+              name: postgresql-secret
               key: SECRET_ROOT_PASSWORD
-        - name: MYSQL_DATABASE
+        - name: POSTGRES_DATABASE
           value: SPEAK_TO_YOU_DB
-        - name: MYSQL_USER
+        - name: POSTGRES_USER
           valueFrom:
             secretKeyRef:
-              name: mariadb-secret
               key: SECRET_USERNAME
-        - name: MYSQL_PASSWORD
+              name: postgresql-secret
+        - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mariadb-secret
               key: SECRET_PASSWORD
+              name: postgresql-secret
         ports:
-        - containerPort: 3306
+        - containerPort: 5432
         volumeMounts:
-        - name: mariadb-storage
-          mountPath: /var/lib/mysql
+        - name: postgresql-storage
+          mountPath: /var/lib/postgresql/data
   volumeClaimTemplates:
   - metadata:
-      name: mariadb-storage
+      name: postgresql-storage
     spec:
       accessModes: ["ReadWriteOnce"]
       resources:
