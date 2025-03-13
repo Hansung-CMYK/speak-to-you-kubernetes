@@ -17,3 +17,6 @@ spec:
           image: myeongjunkim0615/speak-to-you-spring:latest  # 태그 명확하게 추가
           ports:
             - containerPort: 8080  # Spring Boot의 기본 포트
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "prod"
